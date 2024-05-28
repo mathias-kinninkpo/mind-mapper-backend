@@ -22,8 +22,8 @@ def get_question(question_id: str) -> Optional[QuestionResponse]:
         return question_response
     return None
 
-def get_questions(skip: int = 0, limit: int = 10) -> List[QuestionResponse]:
-    questions = QuestionModel.objects.skip(skip).limit(limit).all()
+def get_questions() -> List[QuestionResponse]:
+    questions = QuestionModel.objects.all()
     question_responses = []
     for question in questions:
         question_dict = question.to_mongo().to_dict()

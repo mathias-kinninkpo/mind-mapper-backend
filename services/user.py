@@ -125,8 +125,8 @@ def get_user(user_id: str) -> Optional[User]:
     user_response = UserResponse.parse_obj(user_dict)
     return user_response
 
-def get_users(skip: int = 0, limit: int = 10) -> List[User]:
-    users = User.objects.skip(skip).limit(limit).all()
+def get_users() -> List[User]:
+    users = User.objects.all()
     users_response = list()
     for user in users:
         user_dict = user.to_mongo().to_dict()

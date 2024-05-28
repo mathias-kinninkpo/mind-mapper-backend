@@ -20,8 +20,8 @@ def get_personality(personality_id: str) -> Optional[PersonalityResponse]:
     personality_dict['id'] = str(personality_dict['_id'])
     return PersonalityResponse.parse_obj(personality_dict)
 
-def get_all_personalities(skip: int = 0, limit: int = 10) -> List[PersonalityResponse]:
-    personalities = Personality.objects.skip(skip).limit(limit)
+def get_all_personalities() -> List[PersonalityResponse]:
+    personalities = Personality.objects.all()
     result = []
     for personality in personalities:
         personality_dict = personality.to_mongo().to_dict()
