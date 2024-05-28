@@ -9,6 +9,7 @@ from routes.auth import auth_router
 from routes.user import user_router
 from routes.question import question_router
 from routes.personality import personality_router
+from routes.response import response_router
 
 
 
@@ -40,7 +41,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-routers = [auth_router, user_router, question_router, personality_router]
+routers = [auth_router, user_router, question_router, personality_router, response_router]
 for router in routers:
     app.include_router(router)
 
