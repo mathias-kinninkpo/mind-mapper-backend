@@ -1,7 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 from dotenv import load_dotenv
-from mongoengine import connect 
+from mongoengine import connect, disconnect
 
 # Charger les variables d'environnement à partir du fichier .env
 load_dotenv()
@@ -15,4 +15,5 @@ async def connect_to_mongodb(database_name: str = "Cluster0"):
     return client[database_name]
 
 def init_db():
+    disconnect(alias='default')
     connect(host=MONGO_URI)
