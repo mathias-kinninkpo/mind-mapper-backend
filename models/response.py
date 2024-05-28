@@ -1,16 +1,17 @@
-import mongoengine as me
-from mongoengine import Document, IntField, StringField, DateTimeField
+# models/response.py
+
+from mongoengine import Document, IntField, StringField, DateTimeField, DictField
 from datetime import datetime
 
 class Response(Document):
     id = IntField(primary_key=True, required=True)
     user_id = IntField(required=True)
-    id_link = IntField(required=True)
+    id_link = StringField(required=True)  # Updated to StringField for UUID
     status = StringField(max_length=255, required=True)
     id_personality = IntField(required=True)
-    id_statistique = IntField(required=True)
+    id_statistique = DictField()  # Changed to DictField
     date = DateTimeField(default=datetime.utcnow, required=True)
-    content = StringField(required=True)
+    content = DictField(required=True)  # Changed to DictField
     A = StringField(max_length=255)
     B = StringField(max_length=255)
     C = StringField(max_length=255)
@@ -20,17 +21,12 @@ class Response(Document):
     G = StringField(max_length=255)
     H = StringField(max_length=255)
     I = StringField(max_length=255)
-    # # Génération dynamique des champs A1, A2, ..., I3
-    # for letter in 'ABCDEFGHI':
-    #     for number in range(1, 11):
-    #         locals()[f'{letter}{number}'] = StringField(max_length=255)
 
     meta = {
         'indexes': [
             'user_id',
             'id_link',
             'id_personality',
-            'id_statistique',
             'date'
         ]
     }
