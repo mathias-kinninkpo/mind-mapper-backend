@@ -1,7 +1,6 @@
-from mongoengine import Document, StringField, IntField
+from mongoengine import Document, StringField
 
 class Personality(Document):
-    id = IntField(primary_key=True, required=True)
     name = StringField(max_length=255, required=True)
     description = StringField()
     
