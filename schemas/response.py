@@ -1,18 +1,25 @@
-from pydantic import BaseModel
-from typing import List
+# schemas/response.py
+
+from pydantic import BaseModel, Field
+from typing import Dict
 
 class ResponseBase(BaseModel):
     user_id: int
-    id_link: int
+    id_link: str
     status: str
     id_personality: int
-    id_statistique: int
+    id_statistique: Dict[str, str]
+    content: Dict[str, str]
     date: str
-    
-    # # Génération dynamique des champs A1, A2, ..., I10
-    # for letter in 'ABCDEFGHI':
-    #     for number in range(1, 11):
-    #         locals()[f'{letter}{number}'] = str  # Tous les champs seront de type str
+    A: str
+    B: str
+    C: str
+    D: str
+    E: str
+    F: str
+    G: str
+    H: str
+    I: str
 
 class ResponseCreate(ResponseBase):
     pass
@@ -20,30 +27,9 @@ class ResponseCreate(ResponseBase):
 class ResponseUpdate(ResponseBase):
     pass
 
-class ResponseOut(BaseModel):
-    id: int
-    user_id: int
-    id_link: int
-    status: str
-    id_personality: int
-    id_statistique: int
-    date: str
-    content: dict
-    A : str
-    B : str
-    C : str
-    D : str
-    E : str
-    F : str
-    G : str
-    H : str
-    I : str
-
-    # # Génération dynamique des champs A1, A2, ..., I10
-    # for letter in 'ABCDEFGHI':
-    #     for number in range(1, 11):
-    #         locals()[f'{letter}{number}'] = str  # Tous les champs seront de type str
-
+class ResponseOut(ResponseBase):
+    id: str = Field(..., alias='id', example="60d5f446f1b8e6c7b4efddf3")
+    
     class Config:
         orm_mode = True
-        from_attributes=True
+        from_attributes = True
