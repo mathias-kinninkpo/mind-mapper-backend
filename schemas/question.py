@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 
 class Question(BaseModel):
+    identifiant : str
     content: str
     
 class QuestionResponse(Question):
