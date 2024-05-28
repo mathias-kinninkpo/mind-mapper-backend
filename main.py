@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from database.base import init_db
 from routes.auth import auth_router
 from routes.user import user_router
+from routes.question import question_router
 
 
 
@@ -18,13 +19,13 @@ app = FastAPI(
     description="Une api pour la gestion d'utilisateurs pour un cabinet Psy",
     version="1.0.0",
     contact={
-        "name": "Your Name",
-        "url": "http://your-website.com/contact",
-        "email": "your-email@domain.com",
+        "name": "Mathias KINNINKPO",
+        "url": "https://mathias-kinninkpo.netlify.app",
+        "email": "mathiaskin2003@gmail.com",
     },
     license_info={
-        "name": "MIT License",
-        "url": "https://opensource.org/licenses/MIT",
+        "name": "MMA License",
+        "url": "https://opensource.org/licenses/MMA",
     },
 )
 
@@ -38,7 +39,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-routers = [auth_router, user_router]
+routers = [auth_router, user_router, question_router]
 for router in routers:
     app.include_router(router)
 
