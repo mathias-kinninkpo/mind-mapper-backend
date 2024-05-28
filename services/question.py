@@ -6,7 +6,7 @@ from schemas.question import QuestionCreate, QuestionUpdate, QuestionResponse
 from bson import ObjectId
 
 def create_question(question_data: QuestionCreate) -> QuestionResponse:
-    question = QuestionModel(content=question_data.content)
+    question = QuestionModel(content=question_data.content, identifiant=question_data.identifiant)
     question.save()
     question_dict = question.to_mongo().to_dict()
     question_dict['id'] = str(question_dict['_id'])
@@ -50,6 +50,7 @@ def delete_question(question_id: str) -> Optional[QuestionResponse]:
         question_response = QuestionResponse.parse_obj({
             'id': question_dict['id'],
             'content': question.content,
+            'identifiant': question.identifiant
         })
         question.delete()
         return question_response
