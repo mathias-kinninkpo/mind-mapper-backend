@@ -25,8 +25,8 @@ def read_user(user_id: str):
     return user
 
 @user_router.get("/", response_model=List[UserResponse], summary="Get list of users", description="Retrieve a list of users with pagination.")
-def read_users(skip: int = 0, limit: int = 10):
-    users = get_users(skip=skip, limit=limit)
+def read_users():
+    users = get_users()
     return users
 
 @user_router.put("/{user_id}", response_model=UserResponse, summary="Update user details", description="Update details of a user by their ID.")

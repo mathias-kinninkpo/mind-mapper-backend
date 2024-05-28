@@ -29,8 +29,8 @@ def read_personality(personality_id: str):
     return personality
 
 @personality_router.get("/", response_model=List[PersonalityResponse], summary="Get all personalities", description="Retrieve all personalities with optional pagination.")
-def read_personalities(skip: int = 0, limit: int = 10):
-    return get_all_personalities(skip=skip, limit=limit)
+def read_personalities():
+    return get_all_personalities()
 
 @personality_router.put("/{personality_id}", response_model=PersonalityResponse, summary="Update a personality", description="Update a personality by its ID.")
 def update_existing_personality(personality_id: str, personality_data: PersonalityUpdate):

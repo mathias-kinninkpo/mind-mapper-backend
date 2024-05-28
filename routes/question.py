@@ -24,8 +24,8 @@ def read_question(question_id: str):
     return question
 
 @question_router.get("/", response_model=List[QuestionResponse], summary="Get list of questions", description="Retrieve a list of questions with pagination.")
-def read_questions(skip: int = 0, limit: int = 10):
-    questions = get_questions(skip=skip, limit=limit)
+def read_questions():
+    questions = get_questions()
     return questions
 
 @question_router.put("/{question_id}", response_model=QuestionResponse, summary="Update question details", description="Update details of a question by its ID.")
