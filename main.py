@@ -8,6 +8,7 @@ from database.base import init_db
 from routes.auth import auth_router
 from routes.user import user_router
 from routes.question import question_router
+from routes.personality import personality_router
 
 
 
@@ -39,7 +40,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-routers = [auth_router, user_router, question_router]
+routers = [auth_router, user_router, question_router, personality_router]
 for router in routers:
     app.include_router(router)
 
@@ -59,5 +60,5 @@ async def startup_event():
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="192.168.1.88", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
 
