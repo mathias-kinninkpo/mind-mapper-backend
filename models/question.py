@@ -6,6 +6,7 @@ me.connect('your_database_name', host='your_mongodb_uri')
 
 
 class Question(Document):
+    identifiant = StringField(max_length=5, required=True)
     content = StringField(required=True)
     
 
