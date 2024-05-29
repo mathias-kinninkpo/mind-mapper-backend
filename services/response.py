@@ -4,14 +4,16 @@ from typing import List, Optional, Dict
 from uuid import uuid4
 from datetime import datetime
 from models.response import Response
-from schemas.response import ResponseCreate, ResponseUpdate, ResponseOut
+from models.user import User
+from schemas.response import ResponseCreate, ResponseOut
 
 def create_response(data: ResponseCreate) -> ResponseOut:
+    user =  User.objects(id=data.user_id).first()
     response = Response(
         id_link=str(uuid4()),
         status="PENDING",
         date=datetime.utcnow(),
-        **data.dict()
+        user_id = user
     )
     response.save()
     response_dict = response.to_mongo().to_dict()
@@ -44,17 +46,17 @@ def update_response(response_id: str, data: Dict) -> Optional[ResponseOut]:
     content = data.get("content")
 
     if content:
-        sorted_content = {k: content[k] for k in sorted(content.items(), lambda x : x[1])}
+        sorted_content = {k: content[k] for k in sorted(content.keys())}
         response.content = sorted_content
 
     response.status = status
 
     if status == "COMPLETED" and content:
         stats = {}
-        letters = {key[0] for key in content.keys()}
+        letters = [key[0] for key in content.keys()]
         for letter in letters:
             total_keys = sum(1 for key in content.keys() if key.startswith(letter))
-            true_keys = sum(1 for key in content.keys() if key.startswith(letter) and content[key] == "true")
+            true_keys = sum(1 for key in content.keys() if key.startswith(letter) and content[key] == True)
             stats[letter] = f"{true_keys}/{total_keys}"
         response.id_statistique = stats
 
