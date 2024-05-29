@@ -11,7 +11,7 @@ class Response(Document):
     id_personality = StringField()
     statistique = DictField(default=None)  # Changed to DictField
     date = DateTimeField(default=datetime.utcnow, required=True)
-    content = DictField(required=True, default=None)  # Changed to DictField
+    content = DictField(default=None)  # Changed to DictField
 
     meta = {
         'indexes': [
