@@ -44,7 +44,7 @@ def update_response(response_id: str, data: Dict) -> Optional[ResponseOut]:
     content = data.get("content")
 
     if content:
-        sorted_content = {k: content[k] for k in sorted(content)}
+        sorted_content = {k: content[k] for k in sorted(content.items(), lambda x : x[1])}
         response.content = sorted_content
 
     response.status = status
