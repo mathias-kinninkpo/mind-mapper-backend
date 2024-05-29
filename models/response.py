@@ -9,7 +9,7 @@ class Response(Document):
     id_link = StringField(required=True)  # Updated to StringField for UUID
     status = StringField(max_length=255, required=True)
     id_personality = StringField()
-    statistique = DictField()  # Changed to DictField
+    statistique = DictField(default=None)  # Changed to DictField
     date = DateTimeField(default=datetime.utcnow, required=True)
     content = DictField(required=True, default=None)  # Changed to DictField
 
