@@ -2,27 +2,20 @@
 
 from pydantic import BaseModel, Field
 from typing import Dict
+from .user import UserResponse
 
 class ResponseBase(BaseModel):
-    user_id: int
+    user_id: UserResponse
     id_link: str
     status: str
     id_personality: int
-    id_statistique: Dict[str, str]
-    content: Dict[str, str]
+    statistique: Dict[str, bool]
+    content: Dict[str, bool]
     date: str
-    A: str
-    B: str
-    C: str
-    D: str
-    E: str
-    F: str
-    G: str
-    H: str
-    I: str
 
-class ResponseCreate(ResponseBase):
-    pass
+class ResponseCreate(BaseModel):
+    user_id : UserResponse
+    
 
 class ResponseUpdate(ResponseBase):
     pass
