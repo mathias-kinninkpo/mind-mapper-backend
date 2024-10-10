@@ -21,7 +21,6 @@ def create_response(data: ResponseCreate) -> ResponseOut:
         date=datetime.utcnow(),
         user_id = user
     )
-    print(response.to_mongo().to_dict())
     response.save()
     response_dict = response.to_mongo().to_dict()
     response_dict['id'] = str(response_dict['_id'])
@@ -31,12 +30,14 @@ def create_response(data: ResponseCreate) -> ResponseOut:
 def get_response(id_link: str) -> Optional[ResponseOut]:
     response = Response.objects(id_link=id_link).first()
     
-    if not response:
+    if response is None:
         return None
     response_dict = response.to_mongo().to_dict()
     response_dict['id'] = str(response_dict['_id'])
     user = response_dict['user_id']
     user =  User.objects(id=user).first()
+    if not user:
+        return None
     user_dict = user.to_mongo().to_dict()
     user_dict['id'] = str(user_dict['_id'])
     response_dict['user_id'] = user_dict
@@ -44,14 +45,16 @@ def get_response(id_link: str) -> Optional[ResponseOut]:
 
 def get_all_responses() -> List[ResponseOut]:
     responses = Response.objects.all()
+    if not responses:
+        return None
     result = []
     for response in responses:
         response_dict = response.to_mongo().to_dict()
         response_dict['id'] = str(response_dict['_id'])
         user = response_dict['user_id']
-        print("user_in =========> ", response_dict['user_id'])
-        print("id", response_dict['id'])
         user =  User.objects(id=user).first()
+        if not user:
+            continue
         user_dict = user.to_mongo().to_dict()
         user_dict['id'] = str(user_dict['_id'])
         response_dict['user_id'] = user_dict
@@ -86,6 +89,8 @@ def update_response(id_link: str, data: Dict) -> Optional[ResponseOut]:
     response_dict['id'] = str(response_dict['_id'])
     user = response_dict['user_id']
     user =  User.objects(id=user).first()
+    if not user:
+        return None
     user_dict = user.to_mongo().to_dict()
     user_dict['id'] = str(user_dict['_id'])
     response_dict['user_id'] = user_dict
@@ -100,6 +105,8 @@ def delete_response(response_id: str) -> Optional[ResponseOut]:
     response_dict['id'] = str(response_dict['_id'])
     user = response_dict['user_id']
     user =  User.objects(id=user).first()
+    if not user:
+        return None
     user_dict = user.to_mongo().to_dict()
     user_dict['id'] = str(user_dict['_id'])
     response_dict['user_id'] = user_dict
@@ -115,6 +122,8 @@ def update_response_personality(response_id: str, id_personality: int) -> Option
     response_dict['id'] = str(response_dict['_id'])
     user = response_dict['user_id']
     user =  User.objects(id=user).first()
+    if not user:
+        return None
     user_dict = user.to_mongo().to_dict()
     user_dict['id'] = str(user_dict['_id'])
     response_dict['user_id'] = user_dict
