@@ -1,3 +1,5 @@
 myvenv
-.env
+env
 insert_question.py
+.env
+**/__pycache__/
